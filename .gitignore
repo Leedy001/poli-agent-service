@@ -1,0 +1,14 @@
+# Local environment and IDE settings
+.env
+.env.*
+!.env.example
+.venv/
+.idea/
+
+# Python and Jupyter caches
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Saved output contains unmasked settings
+/notebooks/day03/1.testSetting.ipynb
