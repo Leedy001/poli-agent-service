@@ -34,6 +34,9 @@ app = FastAPI(
     debug=settings.app.debug,
 )
 
+from app.modules.product.router import router as product_router
+app.include_router(product_router)
+
 @app.get("/health", summary="健康检测接口")
 async def health_check() -> dict[str, str]:
     logger.info("执行健康检查")
