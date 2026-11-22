@@ -28,6 +28,10 @@ class DatabaseSettings(EnvSettings):
     name: str = Field(alias="DB_NAME", default="insurance")
     user: str = Field(alias="DB_USER", default="insurance")
     password: str = Field(alias="DB_PASSWORD", default="insurance123")
+    echo: bool = Field(alias="DB_ECHO", default=False)
+    pool_size: int = Field(alias="DB_POOL_SIZE", default=5)
+    max_overflow: int = Field(alias="DB_MAX_OVERFLOW", default=10)
+    pool_recycle: int = Field(alias="DB_POOL_RECYCLE", default=1800)
 
     @computed_field
     @property
@@ -58,27 +62,3 @@ class Settings(BaseSettings):
 
 # 项目启动直接初始化
 settings = Settings()
-
-class DatabaseSettings(EnvSettings):
-    """数据库相关设置"""
-    host: str = Field(alias="DB_HOST", default="localhost")
-    port: int = Field(alias="DB_PORT", default=5432)
-    name: str = Field(alias="DB_NAME", default="insurance")
-    user: str = Field(alias="DB_USER", default="insurance")
-    password: str = Field(alias="DB_PASSWORD", default="insurance123")
-    echo: bool = Field(alias="DB_ECHO", default=False)
-    pool_size: int = Field(alias="DB_POOL_SIZE", default=5)
-    max_overflow: int = Field(alias="DB_MAX_OVERFLOW", default=10)
-    pool_recycle: int = Field(alias="DB_POOL_RECYCLE", default=1800)
-
-    @computed_field
-    @property
-    def url(self) -> str:
-        # 自动拼接URL路径
-        return PostgresDsn.build(
-            scheme="postgresql+asyncpg",
-            host=self.host,
-            port=self.port,
-            username=self.user,
-            password=self.password
-        ).encoded_string()
