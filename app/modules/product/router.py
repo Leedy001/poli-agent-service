@@ -7,10 +7,12 @@ from app.modules.product.service import ProductService
 
 router = APIRouter(prefix="/api/v1/products", tags=["产品管理相关接口"])
 
+def get_product_service(session: AsyncSession = Depends(get_session)) ->ProductService:
+        return ProductService(session)
+
 @router.get("", response_model=list[ProductResponse])
 async def list_product(
         category:str | None = None,
-        session: AsyncSession = Depends(get_session)
+        service: ProductService = Depends(get_product_service)
 ) -> list[ProductResponse]:
-        service = ProductService(session)
         return await service.list_product(category)
