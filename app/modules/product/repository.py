@@ -48,3 +48,13 @@ class ProductRepository:
             .limit(limit)
         )
         return products.all()
+
+# 根据id查询产品详细信息
+    async def query_by_id(
+            self,
+            id: int
+    ) -> Product:
+        return await self.session.scalar(
+            select(Product)
+            .where(Product.id == id)
+        )

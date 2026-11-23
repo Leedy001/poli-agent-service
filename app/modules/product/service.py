@@ -32,3 +32,9 @@ class ProductService:
             candidate_products.extend(products)
 
         return candidate_products
+
+    async def get_product_by_id(
+            self,
+            id: int
+    ) -> Product:
+        return await self.repository.query_by_id(id)

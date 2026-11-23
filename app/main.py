@@ -29,10 +29,6 @@ app = FastAPI(
 configure_logging(settings.logging.level)
 logger = get_logger(__name__)
 
-app = FastAPI(
-    title=settings.app.name,
-    debug=settings.app.debug,
-)
 
 from app.modules.product.router import router as product_router
 app.include_router(product_router)
